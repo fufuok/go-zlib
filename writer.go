@@ -3,7 +3,7 @@ package zlib
 import (
 	"io"
 
-	"github.com/4kills/go-zlib/native"
+	"github.com/fufuok/go-zlib/native"
 )
 
 const (

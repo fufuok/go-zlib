@@ -1,5 +1,13 @@
 # **zlib** for go
 
+*forked from 4kills/go-zlib*
+
+## 改动:
+
+- 解压缩花费了太多内存分配次数, 使用: [bytespool](https://github.com/fufuok/bytespool) 改进, 使用后回收可以实现内存 0 分配.
+
+
+
 <a href="https://choosealicense.com/licenses/zlib/">
 <img src="https://img.shields.io/badge/license-zlibLicense-blue.svg" alt="License: zlibLicense">
 </a>
@@ -10,7 +18,7 @@
 [4kills/go-libdeflate](https://github.com/4kills/go-libdeflate) is much **faster** (at least 3 times) and completely **compatible with zlib**!  
 With that said, if you need to stream large data from disk, you may continue with this library.
 
---- 
+---
 
 This ultra fast **Go zlib library** wraps the original zlib library written in C by Jean-loup Gailly and Mark Adler using cgo. 
 
@@ -131,7 +139,7 @@ Just remove:
 ~~import compress/zlib~~
 
 and use instead: 
- 
+
 ```go
 import "github.com/4kills/go-zlib"
 ```

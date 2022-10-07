@@ -9,6 +9,9 @@ int infInit(z_stream* s) {
 }
 */
 import "C"
+import (
+	"github.com/fufuok/bytespool"
+)
 
 // Decompressor using an underlying c zlib stream to decompress (inflate) data
 type Decompressor struct {
@@ -94,14 +97,16 @@ func (c *Decompressor) Decompress(in, out []byte) (int, []byte, error) {
 
 	inc := 1
 	for {
+		buf := bytespool.Make(len(in) * assumedCompressionFactor * inc)
 		n, b, err := c.p.process(
 			in,
-			make([]byte, 0, len(in)*assumedCompressionFactor*inc),
+			buf,
 			nil,
 			zlibProcess,
 			specificReset,
 		)
 		if err == retry {
+			bytespool.Release(buf)
 			inc++
 			specificReset()
 			continue
