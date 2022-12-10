@@ -5,7 +5,7 @@
 ## 改动:
 
 - 解压缩花费了太多内存分配次数, 使用: [bytespool](https://github.com/fufuok/bytespool) 改进, 使用后回收可以实现内存 0 分配.
-
+- 可选设置支持解压缩的最大文件, 即最大缓冲值: `InitDefaultPools(minSize, maxSize int)`, 默认 `8MiB`
 
 
 <a href="https://choosealicense.com/licenses/zlib/">

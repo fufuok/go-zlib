@@ -96,8 +96,19 @@ func (c *Decompressor) Decompress(in, out []byte) (int, []byte, error) {
 	}
 
 	inc := 1
+	tryMaxSize := true
 	for {
-		buf := bytespool.Make(len(in) * assumedCompressionFactor * inc)
+		size := len(in) * assumedCompressionFactor * inc
+		maxSize := bytespool.MaxSize()
+		if size > maxSize {
+			if tryMaxSize {
+				tryMaxSize = false
+				size = maxSize
+			} else {
+				return 0, nil, errTooLarge
+			}
+		}
+		buf := bytespool.Make(size)
 		n, b, err := c.p.process(
 			in,
 			buf,

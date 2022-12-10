@@ -18,4 +18,6 @@ var (
 	errUnknown = errors.New("error code returned by native c functions unknown")
 
 	retry = errors.New("zlib: ")
+
+	errTooLarge = errors.New("native zlib: data too large")
 )
